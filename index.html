@@ -1,0 +1,1017 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5e6bd">
+<title>Sunboy's Adventure — My Portfolio</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rye&family=ZCOOL+KuaiLe&display=swap');
+
+:root {
+  --paper: #f5e6bd;
+  --ink: #29231d;
+  --red: #bd4936;
+  --blue: #496a73;
+  --cream: #fff5d9;
+  --gold: #e6b84f;
+  --green: #65734d;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'ZCOOL KuaiLe', 'Trebuchet MS', sans-serif;
+  overflow-x: hidden;
+}
+
+button, a { font: inherit; }
+button { color: inherit; }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  opacity: .19;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+}
+
+button, a { -webkit-tap-highlight-color: transparent; }
+
+button:focus-visible, a:focus-visible {
+  outline: 3px dashed var(--red);
+  outline-offset: 5px;
+}
+
+.screen {
+  min-height: 100svh;
+  position: relative;
+}
+
+.hidden { display: none !important; }
+
+/* ===== INTRO / GAME START ===== */
+
+#intro {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 100svh;
+  background:
+    radial-gradient(ellipse at 50% 45%, #fff6dc 0%, transparent 67%),
+    var(--paper);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 22px clamp(18px, 5vw, 70px);
+  border-bottom: 3px solid var(--ink);
+  position: relative;
+  z-index: 3;
+}
+
+.logo {
+  font-family: 'Rye', Georgia, serif;
+  font-size: clamp(13px, 2vw, 19px);
+  letter-spacing: 1px;
+}
+
+.logo span { color: var(--red); }
+
+.top-note {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-align: right;
+}
+
+.hero {
+  width: min(1100px, 100%);
+  margin: auto;
+  padding: 25px 24px 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  padding: 25px 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 7px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  background: var(--cream);
+  transform: rotate(-2deg);
+}
+
+.eyebrow i {
+  width: 8px;
+  height: 8px;
+  background: var(--red);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+h1 {
+  font-family: 'Rye', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(40px, 6.4vw, 82px);
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin: 26px 0 12px;
+  text-shadow: 3px 3px 0 #e2c98e;
+}
+
+h1 .sun-word {
+  color: var(--red);
+  display: block;
+}
+
+.subtitle {
+  font-size: clamp(15px, 2vw, 19px);
+  letter-spacing: 2px;
+  margin: 15px 0;
+}
+
+.description {
+  max-width: 380px;
+  color: #655b49;
+  line-height: 1.9;
+  font-size: 14px;
+}
+
+.start-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 3px solid var(--ink);
+  border-radius: 6px;
+  padding: 15px 24px;
+  margin-top: 18px;
+  background: var(--red);
+  color: white;
+  box-shadow: 5px 5px 0 var(--ink);
+  cursor: pointer;
+  font-size: 17px;
+  transition: transform .15s, box-shadow .15s;
+}
+
+.start-button:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.start-button:active {
+  transform: translate(5px, 5px);
+  box-shadow: none;
+}
+
+.start-button .arrow {
+  font-size: 22px;
+}
+
+.hint {
+  font-size: 11px;
+  color: #82745d;
+  margin-top: 20px;
+  letter-spacing: 1px;
+}
+
+/* Original inline SVG character */
+
+.character-wrap {
+  position: relative;
+  min-width: 0;
+  animation: floaty 3s ease-in-out infinite;
+}
+
+.character-wrap svg {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  margin: auto;
+  overflow: visible;
+}
+
+.character-shadow {
+  width: 65%;
+  height: 20px;
+  margin: -8px auto 0;
+  border-radius: 50%;
+  background: #29231d25;
+  filter: blur(5px);
+  animation: shadow 3s ease-in-out infinite;
+}
+
+.bubble {
+  position: absolute;
+  right: 0;
+  top: 8%;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  padding: 14px 18px;
+  font-size: 14px;
+  transform: rotate(8deg);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  left: 22px;
+  width: 13px;
+  height: 13px;
+  background: var(--cream);
+  border-right: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  transform: rotate(45deg);
+}
+
+.spark {
+  position: absolute;
+  color: var(--red);
+  font-size: 28px;
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.spark.one { top: 30%; left: 0; }
+.spark.two { bottom: 24%; right: 3%; animation-delay: .8s; }
+
+.ground {
+  height: 24px;
+  border-top: 3px solid var(--ink);
+  background: repeating-linear-gradient(
+    135deg,
+    #c9a768 0 12px,
+    #dfc28b 12px 24px
+  );
+}
+
+.intro-footer {
+  padding: 12px 20px 16px;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+@keyframes floaty {
+  0%,100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+@keyframes shadow {
+  0%,100% { transform: scaleX(1); opacity: .7; }
+  50% { transform: scaleX(.8); opacity: .35; }
+}
+
+@keyframes twinkle {
+  0%,100% { transform: scale(.8) rotate(0); }
+  50% { transform: scale(1.25) rotate(15deg); }
+}
+
+/* ===== PORTFOLIO WORLD ===== */
+
+#world {
+  background:
+    radial-gradient(ellipse at top, #fff5d9, transparent 70%),
+    var(--paper);
+  min-height: 100svh;
+}
+
+.world-nav {
+  padding: 18px clamp(16px, 5vw, 65px);
+  border-bottom: 3px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #f5e6bdf2;
+  backdrop-filter: blur(8px);
+}
+
+.world-nav nav {
+  display: flex;
+  gap: clamp(12px, 3vw, 30px);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.world-nav nav a {
+  font-size: 13px;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding: 5px 0;
+}
+
+.world-nav nav a:hover {
+  border-color: var(--red);
+}
+
+.back-button {
+  border: 2px solid var(--ink);
+  background: var(--cream);
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.world-header {
+  text-align: center;
+  padding: 75px 20px 35px;
+}
+
+.world-header .eyebrow { transform: rotate(0); }
+
+.world-header h2 {
+  font-family: 'Rye', Georgia, serif;
+  font-size: clamp(35px, 6vw, 64px);
+  line-height: 1.15;
+  margin: 22px 0 12px;
+  font-weight: 400;
+}
+
+.world-header h2 span { color: var(--red); }
+
+.world-header p {
+  max-width: 520px;
+  margin: auto;
+  color: #655b49;
+  line-height: 1.9;
+  font-size: 14px;
+}
+
+.world-content {
+  width: min(1000px, calc(100% - 36px));
+  margin: auto;
+  padding-bottom: 75px;
+}
+
+.map-sign {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 35px 0 22px;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.map-sign::after {
+  content: "";
+  flex: 1;
+  border-top: 2px dashed #b8a781;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px;
+}
+
+.project {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  transition: transform .2s, box-shadow .2s;
+  overflow: hidden;
+}
+
+.project:hover {
+  transform: translate(-2px, -3px) rotate(-.3deg);
+  box-shadow: 9px 9px 0 var(--ink);
+}
+
+.project-art {
+  height: 220px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 3px solid var(--ink);
+  background-color: #d8d1ac;
+  background-image: radial-gradient(#29231d22 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+.project:nth-child(2) .project-art { background-color: #e8c5a7; }
+.project:nth-child(3) .project-art { background-color: #c8d0a9; }
+.project:nth-child(4) .project-art { background-color: #b9ced0; }
+
+.project-number {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 11px;
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  padding: 5px 9px;
+}
+
+.project-icon {
+  font-family: 'Rye', Georgia, serif;
+  font-size: clamp(25px, 4vw, 42px);
+  text-align: center;
+  padding: 10px;
+  transform: rotate(-5deg);
+  text-shadow: 3px 3px 0 #fff5d9;
+}
+
+.project-icon .symbol {
+  display: block;
+  font-family: sans-serif;
+  font-size: 60px;
+  margin-bottom: 8px;
+  animation: floaty 4s ease-in-out infinite;
+}
+
+.project-info { padding: 22px; }
+
+.project-info h3 {
+  font-family: 'Rye', Georgia, serif;
+  font-size: 23px;
+  font-weight: 400;
+  margin: 0 0 10px;
+}
+
+.project-info p {
+  font-size: 13px;
+  color: #655b49;
+  line-height: 1.9;
+  margin: 0 0 17px;
+}
+
+.project-link {
+  display: inline-block;
+  background: var(--red);
+  color: white;
+  border: 2px solid var(--ink);
+  padding: 9px 14px;
+  font-size: 12px;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: .15s;
+}
+
+.project-link:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.about {
+  margin-top: 90px;
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.about h2, .contact h2 {
+  font-family: 'Rye', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(30px, 4vw, 46px);
+  margin: 0 0 18px;
+}
+
+.about-copy {
+  font-size: 14px;
+  line-height: 2;
+  color: #655b49;
+}
+
+.stamp {
+  display: inline-block;
+  border: 3px double var(--red);
+  color: var(--red);
+  padding: 10px;
+  font-size: 12px;
+  transform: rotate(-8deg);
+  margin-top: 15px;
+}
+
+.contact {
+  margin-top: 75px;
+  padding: clamp(25px, 5vw, 48px);
+  background: var(--blue);
+  color: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 7px 7px 0 var(--ink);
+}
+
+.contact p {
+  font-size: 14px;
+  line-height: 1.9;
+  max-width: 520px;
+}
+
+.contact a {
+  color: var(--cream);
+  text-underline-offset: 4px;
+}
+
+.world-footer {
+  margin-top: 70px;
+  padding: 25px 10px;
+  border-top: 3px solid var(--ink);
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 1px;
+  line-height: 2;
+}
+
+/* Screen transition */
+
+#intro.leaving {
+  animation: fadeout .65s forwards;
+}
+
+@keyframes fadeout {
+  to { opacity: 0; transform: scale(1.03); }
+}
+
+#world.entering {
+  animation: fadein .65s both;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 700px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 25px;
+    gap: 0;
+  }
+
+  .hero-copy {
+    order: 2;
+    text-align: center;
+    padding: 5px 0 25px;
+  }
+
+  .description { margin-left: auto; margin-right: auto; }
+
+  .character-wrap {
+    order: 1;
+    width: min(390px, 100%);
+    margin: auto;
+  }
+
+  .character-wrap svg { max-height: 360px; }
+  .bubble { right: 2%; font-size: 12px; }
+  .spark.one { left: 4%; }
+
+  h1 { margin-top: 20px; }
+
+  .world-nav { align-items: flex-start; }
+  .world-nav nav { gap: 9px 15px; }
+  .world-nav nav a { font-size: 11px; }
+
+  .projects { grid-template-columns: 1fr; }
+  .project-art { height: 230px; }
+  .about { grid-template-columns: 1fr; gap: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ==============================
+     PAGE 1: GAME START SCREEN
+     ============================== -->
+
+<main id="intro" class="screen">
+  <header class="topbar">
+    <a class="logo" href="#top" aria-label="Sunboy home">
+      SUNBOY<span>™</span> ADVENTURE
+    </a>
+    <div class="top-note">AN ORIGINAL PORTFOLIO GAME<br>EST. 2026</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow"><i></i> PLAYER ONE · READY?</div>
+
+      <h1>
+        THE WORLD<br>
+        OF <span class="sun-word">SUNBOY!</span>
+      </h1>
+
+      <div class="subtitle">一场关于创作与想象力的冒险</div>
+
+      <p class="description">
+        嗨，旅行者！我是太阳头男孩。我的鹰伙伴已经准备好了。
+        这里藏着我的作品、奇思妙想和正在发生的新故事。
+        你愿意和我们一起出发吗？
+      </p>
+
+      <button class="start-button" id="startButton">
+        <span>▶</span>
+        <span>开始冒险 / START</span>
+        <span class="arrow">→</span>
+      </button>
+
+      <div class="hint">PRESS START TO EXPLORE MY CREATIVE WORLD</div>
+    </div>
+
+    <div class="character-wrap">
+      <div class="bubble">出发！</div>
+      <div class="spark one">✳</div>
+      <div class="spark two">✦</div>
+
+      <!-- Original character: Sun-headed boy + eagle companion -->
+      <svg viewBox="0 0 440 470" role="img"
+           aria-label="原创复古卡通太阳头男孩，肩膀上站着一只鹰">
+        <defs>
+          <pattern id="sunTexture" width="7" height="7" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r=".8" fill="#29231d" opacity=".15"/>
+          </pattern>
+        </defs>
+
+        <!-- Decorative sun rays -->
+        <g stroke="#29231d" stroke-width="5" stroke-linecap="round">
+          <path d="M192 35 L192 17"/>
+          <path d="M244 43 L254 27"/>
+          <path d="M285 77 L303 69"/>
+          <path d="M132 76 L115 65"/>
+          <path d="M102 112 L82 112"/>
+        </g>
+
+        <!-- Sun head rays -->
+        <g fill="#e6b84f" stroke="#29231d" stroke-width="5" stroke-linejoin="round">
+          <path d="M192 36 L204 62 L220 34 L230 64 L252 45 L251 76
+                   L281 67 L272 94 L302 97 L284 119 L308 137
+                   L280 150 L294 177 L265 177 L267 207 L240 193
+                   L225 219 L207 193 L183 210 L180 183 L149 188
+                   L160 160 L134 146 L158 129 L140 107 L168 102
+                   L163 73 L188 82 Z"/>
+        </g>
+
+        <!-- Round sun face -->
+        <circle cx="218" cy="125" r="76" fill="#e6b84f"
+                stroke="#29231d" stroke-width="6"/>
+        <circle cx="218" cy="125" r="76" fill="url(#sunTexture)"/>
+
+        <!-- Eyebrows -->
+        <path d="M180 105 Q191 96 202 104"
+              fill="none" stroke="#29231d" stroke-width="6"
+              stroke-linecap="round"/>
+        <path d="M234 104 Q247 95 258 105"
+              fill="none" stroke="#29231d" stroke-width="6"
+              stroke-linecap="round"/>
+
+        <!-- Eyes -->
+        <ellipse cx="191" cy="122" rx="10" ry="15" fill="#29231d"/>
+        <ellipse cx="247" cy="122" rx="10" ry="15" fill="#29231d"/>
+        <ellipse cx="194" cy="117" rx="3" ry="5" fill="#fff5d9"/>
+        <ellipse cx="250" cy="117" rx="3" ry="5" fill="#fff5d9"/>
+
+        <!-- Cheeks and smile -->
+        <ellipse cx="169" cy="139" rx="11" ry="6" fill="#bd4936" opacity=".7"/>
+        <ellipse cx="267" cy="139" rx="11" ry="6" fill="#bd4936" opacity=".7"/>
+        <path d="M193 145 Q218 169 243 145"
+              fill="#fff5d9" stroke="#29231d"
+              stroke-width="5" stroke-linecap="round"/>
+
+        <!-- Neck -->
+        <path d="M202 194 L202 217 L238 217 L238 194"
+              fill="#e6b84f" stroke="#29231d" stroke-width="5"/>
+
+        <!-- Body -->
+        <path d="M167 218 Q219 198 270 218
+                 L305 335 L133 335 Z"
+              fill="#496a73" stroke="#29231d"
+              stroke-width="6" stroke-linejoin="round"/>
+
+        <!-- Overalls bib -->
+        <path d="M183 225 L254 225 L263 302
+                 Q219 320 175 302 Z"
+              fill="#bd4936" stroke="#29231d" stroke-width="5"/>
+        <circle cx="195" cy="239" r="5" fill="#e6b84f" stroke="#29231d" stroke-width="3"/>
+        <circle cx="242" cy="239" r="5" fill="#e6b84f" stroke="#29231d" stroke-width="3"/>
+
+        <!-- Arms -->
+        <path d="M157 231 Q126 247 125 278 L143 288
+                 L172 255"
+              fill="#e6b84f" stroke="#29231d" stroke-width="6"
+              stroke-linejoin="round"/>
+        <path d="M278 232 Q302 241 316 262 L303 278
+                 L270 258"
+              fill="#e6b84f" stroke="#29231d" stroke-width="6"
+              stroke-linejoin="round"/>
+
+        <!-- Gloves -->
+        <path d="M123 276 Q108 268 101 283
+                 Q95 300 115 305 Q134 307 143 288 Z"
+              fill="#fff5d9" stroke="#29231d" stroke-width="5"/>
+        <path d="M306 263 Q324 252 333 268
+                 Q342 286 324 292 Q307 295 303 278 Z"
+              fill="#fff5d9" stroke="#29231d" stroke-width="5"/>
+
+        <!-- Legs -->
+        <path d="M176 309 L172 358 L198 358 L208 313"
+              fill="#496a73" stroke="#29231d" stroke-width="6"/>
+        <path d="M231 313 L240 358 L266 358 L257 309"
+              fill="#496a73" stroke="#29231d" stroke-width="6"/>
+
+        <!-- Shoes -->
+        <path d="M170 349 Q153 354 151 372
+                 Q174 382 204 370 L200 354 Z"
+              fill="#bd4936" stroke="#29231d" stroke-width="5"/>
+        <path d="M240 354 L236 370
+                 Q265 382 289 370 Q287 354 264 349 Z"
+              fill="#bd4936" stroke="#29231d" stroke-width="5"/>
+
+        <!-- Eagle perched on boy's right shoulder -->
+        <!-- Tail -->
+        <path d="M323 196 L359 211 L340 228 L315 215 Z"
+              fill="#fff5d9" stroke="#29231d" stroke-width="5"
+              stroke-linejoin="round"/>
+
+        <!-- Eagle body -->
+        <ellipse cx="322" cy="183" rx="29" ry="38"
+                 fill="#79513a" stroke="#29231d" stroke-width="5"
+                 transform="rotate(-15 322 183)"/>
+
+        <!-- Eagle wing -->
+        <path d="M310 171 Q282 151 291 184
+                 L301 197 L292 202 L307 210
+                 L319 196"
+              fill="#a7774e" stroke="#29231d" stroke-width="5"
+              stroke-linejoin="round"/>
+        <path d="M301 177 L313 193 M298 188 L310 201"
+              fill="none" stroke="#29231d" stroke-width="3"
+              stroke-linecap="round"/>
+
+        <!-- Eagle head -->
+        <circle cx="323" cy="145" r="25"
+                fill="#79513a" stroke="#29231d" stroke-width="5"/>
+        <path d="M306 138 Q313 119 331 126
+                 L339 141 L324 151 Z"
+              fill="#fff5d9" stroke="#29231d" stroke-width="4"/>
+
+        <!-- Eagle eye -->
+        <circle cx="329" cy="140" r="4.5" fill="#29231d"/>
+        <circle cx="330" cy="138" r="1.5" fill="#fff5d9"/>
+
+        <!-- Eagle beak -->
+        <path d="M343 143 L363 151 L343 159 L338 151 Z"
+              fill="#e6b84f" stroke="#29231d" stroke-width="4"
+              stroke-linejoin="round"/>
+
+        <!-- Eagle crest -->
+        <path d="M311 124 L303 112 L320 121
+                 L325 110 L333 124"
+              fill="#79513a" stroke="#29231d" stroke-width="4"
+              stroke-linejoin="round"/>
+
+        <!-- Eagle feet -->
+        <path d="M308 214 L305 226 L315 222
+                 M327 214 L329 226 L338 221"
+              fill="none" stroke="#e6b84f" stroke-width="5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- Little stars -->
+        <path d="M92 198 L98 211 L111 217 L98 223 L92 237
+                 L86 223 L73 217 L86 211 Z"
+              fill="#bd4936" stroke="#29231d" stroke-width="3"/>
+        <path d="M356 74 L361 84 L372 89 L361 94
+                 L356 105 L351 94 L340 89 L351 84 Z"
+              fill="#e6b84f" stroke="#29231d" stroke-width="3"/>
+      </svg>
+
+      <div class="character-shadow"></div>
+    </div>
+  </section>
+
+  <div class="ground"></div>
+  <footer class="intro-footer">
+    <span>✦ ONE BOY</span>
+    <span>✦ ONE EAGLE</span>
+    <span>✦ ENDLESS POSSIBILITIES</span>
+  </footer>
+</main>
+
+<!-- ==============================
+     PAGE 2: PORTFOLIO WORLD
+     ============================== -->
+
+<main id="world" class="screen hidden">
+  <header class="world-nav">
+    <a class="logo" href="#" id="homeLogo">SUNBOY<span>™</span></a>
+    <nav aria-label="主要导航">
+      <a href="#works">作品地图</a>
+      <a href="#about">关于我</a>
+      <a href="#contact">联系我</a>
+      <button class="back-button" id="backButton">↶ 返回开始页</button>
+    </nav>
+  </header>
+
+  <section class="world-header">
+    <div class="eyebrow"><i></i> WORLD MAP UNLOCKED</div>
+    <h2>欢迎来到<br><span>我的创作世界！</span></h2>
+    <p>
+      每一个作品都是一个新关卡。选择一扇门，
+      探索我曾经创造的世界，也看看下一场冒险正在何处发生。
+    </p>
+  </section>
+
+  <div class="world-content">
+    <section id="works">
+      <div class="map-sign">✦ SELECT YOUR DESTINATION / 选择关卡</div>
+
+      <div class="projects">
+
+        <!-- PROJECT CARD 01
+             Replace the title, description and link with your own project. -->
+        <article class="project">
+          <div class="project-art">
+            <span class="project-number">LEVEL 01</span>
+            <div class="project-icon">
+              <span class="symbol">✎</span>
+              THE ART ROOM
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>绘画与插画</h3>
+            <p>这里存放我的绘画、角色设计、视觉实验，以及每一个灵感突然出现的瞬间。</p>
+            <a class="project-link" href="https://github.com/"
+               target="_blank" rel="noopener noreferrer">进入关卡 ↗</a>
+          </div>
+        </article>
+
+        <!-- PROJECT CARD 02 -->
+        <article class="project">
+          <div class="project-art">
+            <span class="project-number">LEVEL 02</span>
+            <div class="project-icon">
+              <span class="symbol">✿</span>
+              THE DESIGN LAB
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>平面与视觉设计</h3>
+            <p>海报、版式、品牌概念和各种视觉创作。每一次尝试，都是一次新的挑战。</p>
+            <a class="project-link" href="https://github.com/"
+               target="_blank" rel="noopener noreferrer">进入关卡 ↗</a>
+          </div>
+        </article>
+
+        <!-- PROJECT CARD 03 -->
+        <article class="project">
+          <div class="project-art">
+            <span class="project-number">LEVEL 03</span>
+            <div class="project-icon">
+              <span class="symbol">⌘</span>
+              THE DIGITAL ISLAND
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>网页与数字作品</h3>
+            <p>探索代码、互动网页与数字体验，把脑海中的点子变成可以亲自操作的东西。</p>
+            <a class="project-link" href="https://github.com/"
+               target="_blank" rel="noopener noreferrer">进入关卡 ↗</a>
+          </div>
+        </article>
+
+        <!-- PROJECT CARD 04 -->
+        <article class="project">
+          <div class="project-art">
+            <span class="project-number">LEVEL 04</span>
+            <div class="project-icon">
+              <span class="symbol">★</span>
+              THE SECRET WORLD
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>其他有趣的实验</h3>
+            <p>未分类的创作、正在开发的想法，以及那些还没有被命名的奇妙计划。</p>
+            <a class="project-link" href="https://github.com/"
+               target="_blank" rel="noopener noreferrer">进入关卡 ↗</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div>
+        <div class="map-sign">✦ PLAYER PROFILE</div>
+        <h2>关于这位<br>冒险家</h2>
+        <div class="stamp">ORIGINAL CREATOR</div>
+      </div>
+      <div class="about-copy">
+        <p>
+          你好，我是【在这里填入你的名字】。
+          我喜欢观察世界、收集灵感，并把那些奇奇怪怪的想法变成作品。
+        </p>
+        <p>
+          这个网站是我的个人冒险地图。这里记录我的创作、练习、
+          项目与成长。我希望它不只是一个展示作品的地方，
+          也是一座不断扩张的创意世界。
+        </p>
+        <p>
+          <strong>我的冒险原则：</strong><br>
+          保持好奇，勇敢尝试，持续创造。
+        </p>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="map-sign">✦ THE NEXT ADVENTURE</div>
+      <h2>故事还没有结束！</h2>
+      <p>
+        想和我交流、合作，或只是打声招呼？
+        欢迎通过下面的入口找到我。
+      </p>
+      <!-- Change this address to your own email -->
+      <a href="mailto:your-email@example.com">✉ 给我写一封信 ↗</a>
+      <p>
+        <a href="https://github.com/" target="_blank"
+           rel="noopener noreferrer">GitHub ↗</a>
+        &nbsp; · &nbsp;
+        <a href="#works">返回作品地图 ↑</a>
+      </p>
+    </section>
+
+    <footer class="world-footer">
+      SUNBOY'S ADVENTURE · MY PERSONAL PORTFOLIO<br>
+      HANDMADE WITH IMAGINATION © 2026
+    </footer>
+  </div>
+</main>
+
+<script>
+const intro = document.getElementById('intro');
+const world = document.getElementById('world');
+const startButton = document.getElementById('startButton');
+const backButton = document.getElementById('backButton');
+const homeLogo = document.getElementById('homeLogo');
+
+function startAdventure() {
+  intro.classList.add('leaving');
+
+  window.setTimeout(() => {
+    intro.classList.add('hidden');
+    intro.classList.remove('leaving');
+    world.classList.remove('hidden');
+    world.classList.add('entering');
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, 550);
+}
+
+function returnHome() {
+  world.classList.add('hidden');
+  world.classList.remove('entering');
+  intro.classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+startButton.addEventListener('click', startAdventure);
+backButton.addEventListener('click', returnHome);
+homeLogo.addEventListener('click', (event) => {
+  event.preventDefault();
+  returnHome();
+});
+</script>
+</body>
+</html>
